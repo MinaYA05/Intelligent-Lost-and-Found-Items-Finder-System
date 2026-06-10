@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Items - LIFIFS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="style.css">
+</head> 
+
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: #a58055;
+    }
+    .report-section{
+        padding: 50px 0;
+        background-color: #f4f4f4;
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('image/claim.png') no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
+    }
+    .report-section .display-4{
+        font-size: 3.5em;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: 400;
+        animation: none;
+    }
+    .report-section .lead{
+        font-size: 1.4em;
+        margin-bottom: 40px;
+        color: #f8f9fa;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        font-weight: 400;
+        animation: fade-in 3s forwards;
+    }
+    @keyframes color-change{
+        0%{
+            color: #f8f9fa;
+        }
+        25%{
+            color: #b8daff;
+        }
+        50%{
+            color: #ffffff;
+        }
+        75%{
+            color: #b8daff;
+        }
+        100%{
+            color: #f8f9fa;
+        }
+    }
+    @keyframes fade-in{
+        0%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+    .report-card{
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s box-shadow 0.3s;
+    }
+    .report-card:hover{
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .report-card h3{
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .report-card h3 i{
+        margin-right: 10px;
+        color: #ff8c00;
+    }
+    .report-card .form-group label{
+        font-weight: bold;
+        color: #555;
+    }
+    .report-card .form-control{
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .report-card .btn{
+        font-size: 1.2em;
+        padding: 10px 20px;
+        border-radius: 4px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .report-card .btn-primary{
+        background-color: #007bff;
+        border: none;
+    }
+    .report-card .btn-primary:hover{
+        background-color: #0056b3;
+        transform: translateY(-3px);
+    }
+    .report-card .btn-success{
+        background-color: #955910;
+        border: none;
+    }
+    .report-card .btn-success:hover{
+        background-color: #a58055;
+        transform: translateY(-3px);
+    }
+</style>
+
+<body>
+    
+    <!--Navigation bar-->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img src="scet logo.jpg" alt="scet logo" class="d-inline-block align-top" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="report.html">Report Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">Feedback</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-outline-dark shadow-none mr-lg-3 mr-2" data-toggle="modal" data-target="#loginModal" type="button">
+                        Login
+                    </button>
+                    <button class="btn btn-outline-dark shadow-none mr-lg-3" data-toggle="modal" data-target="#registerModal" type="button">
+                        Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="modal fade" id="loginModal" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="login-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex align-items-center">
+                            <i class="bi bi-person-circle fs-3 me-2"></i> User Login
+                        </h5>
+                        <button type="reset" class="btn-close shadow-none" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Email / Mobile</label>
+                            <input type="text" name="email_mob" class="form-control shadow-none" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="pass" class="form-control shadow-none" required>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <button type="submit" class="btn btn-dark shadow-none">LOGIN</button>
+                            <button type="button" class="btn text-secondary text-decoration-none shadow-none">
+                                Forget Password?
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="register-form" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title d-flex align-items-center">
+                            <i class="bi bi-person-lines-fill fs-3 me-2"></i> User Registration
+                        </h5>
+                        <button type="reset" class="btn-close shadow-none" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <span class="badge bg-light text-dark mb-3 text-wrap lh-base">
+                            <b>Note:</b> Your details must match with your ID (Aadhaar card, passport, driving license, etc.) that will required during check-in.
+                        </span>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control shadow-none" required>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control shadow-none" required>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="number" name="phonenum" class="form-control shadow-none" required>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Picture</label>
+                                    <input type="file" name="profile" class="form-control shadow-none" accept=".jpg,.jpeg,.png,.webp">
+                                </div>
+                                <div class="col-md-12 ps-0 mb-3">
+                                    <label class="form-label">Address</label>
+                                    <textarea name="address" rows="2" class="form-control shadow-none"></textarea>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Pincode</label>
+                                    <input type="number" name="pincode" class="form-control shadow-none" required>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Date of birth</label>
+                                    <input type="date" name="dob" class="form-control shadow-none" required>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="pass" class="form-control shadow-none" required>
+                                </div>
+                                <div class="col-md-6 ps-0 mb-3">
+                                    <label class="form-label">Confirm Password</label>
+                                    <input type="password" name="cpass" class="form-control shadow-none" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center my-1">
+                            <button type="submit" class="btn btn-dark shadow-none">REGISTER</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--report section-->
+    <section class="report-section">
+        <div class="container">
+            <h1 class="display-4 text-center">Report Lost or Found Items</h1>
+            <p class="lead text-center">
+                Help us reunite lost items with their owners by reporting here.
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="report-card shadow-lg p-3 mb-5 bg-white rounded">
+                        <h3 class="text-center">
+                            <i class="fas fa-exclamation-circle"></i> Report Lost Item
+                        </h3>
+                        <form id="lostItemForm">
+                            <div class="form-group">
+                                <label for="lostItemName">Item Name</label>
+                                <input type="text" class="form-control" id="lostItemName" name="lostItemName" placeholder="Enter the name of the lost item" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lostItemDesc">Item Description</label>
+                                <textarea id="lostItemDesc" class="form-control" name="lostItemDesc" rows="3" placeholder="Provide a detailed description of the item, including key feature, color, size, brand, etc" required></textarea>
+                                <button type="button" class="btn btn-sm btn-outline-info mt-2" onclick="suggestCategory('lostItemDesc', 'lostItemCategory')">
+                                    <i class="fas fa-magic"></i> Suggest Category (AI)
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label for="lostItemLocation">Last Seen Location of the Item</label>
+                                <input type="text" class="form-control" id="lostItemLocation" name="lostItemLocation" placeholder="Enter the last known location of the missing item" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lostItemDate">Date Lost</label>
+                                <input type="date" class="form-control" id="lostItemDate" name="lostItemDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lostItemCategory">Category</label>
+                                <select class="form-control" id="lostItemCategory" name="lostItemCategory" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Documents">Documents</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Books">Books</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block"> Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="report-card shadow-lg p-3 mb-5 bg-white rounded">
+                        <h3 class="text-center">
+                            <i class="fas fa-check-circle"></i> Report Found Item
+                        </h3>
+                        <form id="foundItemForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="foundItemName">Item Name</label>
+                                <input type="text" class="form-control" id="foundItemName" name="foundItemName" placeholder="Enter the name of the found item" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="foundItemDesc">Item Description</label>
+                                <textarea id="foundItemDesc" class="form-control" name="foundItemDesc" rows="3" placeholder="Provide a detailed description of the item, including key features, color, size, brand, etc" required></textarea>
+                                <button type="button" class="btn btn-sm btn-outline-info mt-2" onclick="suggestCategory('foundItemDesc', 'foundItemCategory')">
+                                    <i class="fas fa-magic"></i> Suggest Category (AI)
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label for="foundItemLocation">Found Location of the Item</label>
+                                <input type="text" class="form-control" id="foundItemLocation" name="foundItemLocation" placeholder="Enter the location where the item was found" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="foundItemDate">Date Found</label>
+                                <input type="date" class="form-control" id="foundItemDate" name="foundItemDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="foundItemImage">Upload Picture of Item</label>
+                                <input type="file" class="form-control" id="foundItemImage" name="foundItemImage" accept=".jpg,.jpeg,.png,.webp" required>
+                                <small class="form-text text-muted">Please upload a clear picture of the found item</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="foundItemCategory">Category</label>
+                                <select class="form-control" id="foundItemCategory" name="foundItemCategory" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Documents">Documents</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Books">Books</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block"> Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--advanced footer section-->
+    <footer class="text-center py-4 advanced-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="mailto:info@lostandfound.com"><i class="bi bi-envelope"></i>info@lostandfound.com</a>
+                        </li>
+                        <li>
+                            <a href="tel:+1234567890"><i class="bi bi-telephone"></i>+1234 567 890</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="about.html"><i class="bi bi-info-circle"></i>About Us</a>
+                        </li>
+                        <li>
+                            <a href="index.html#categories"><i class="bi bi-card-list"></i>Categories</a>
+                        </li>
+                        <li>
+                            <a href="index.html#search"><i class="bi bi-search"></i>Search</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <ul class="list-unstyled social-icons">
+                        <li>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="newsletter mt-4">
+                <h5>Subscribe to our Newsletter</h5>
+                <form id="newsletterForm">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p>@copyright 2026 Intelligent Lost and Found Items Finder System. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

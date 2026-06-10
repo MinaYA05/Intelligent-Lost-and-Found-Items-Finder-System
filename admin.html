@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Intelligent Lost and Found Items Finder System</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-search-location"></i> Lost & Found
+        </div>
+        <div class="sidebar-nav">
+            <a href="#" class="sidebar-link active" onclick="event.preventDefault(); showSection('dashboard', this)">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); showSection('feedbacks', this)">
+                <i class="fas fa-comments"></i> Feedbacks
+            </a>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); showSection('messages', this)">
+                <i class="fas fa-envelope"></i> Messages
+            </a>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); showSection('lost-items', this)">
+                <i class="fas fa-search-minus"></i> Lost Items
+            </a>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); showSection('found-items', this)">
+                <i class="fas fa-search-plus"></i> Found Items
+            </a>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); showSection('claims', this)">
+                <i class="fas fa-hand-holding-heart"></i> Claims
+            </a>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); showSection('history', this)">
+                <i class="fas fa-history"></i> History
+            </a>
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;"></div>
+            <a href="#" class="sidebar-link" onclick="event.preventDefault(); logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        
+        <!-- Top Header -->
+        <div class="top-header">
+            <h2 class="header-title" id="page-title">Dashboard Overview</h2>
+            <div class="user-info">
+                <span class="mr-2 text-gray-600 small">Admin User</span>
+                <img class="img-profile rounded-circle" src="https://ui-avatars.com/api/?name=Admin+User&background=4e73df&color=fff" width="32">
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section">
+            <div class="row">
+                <!-- Feedbacks Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card primary">
+                        <div class="stats-info">
+                            <h5 class="text-primary">Total Feedbacks</h5>
+                            <h2 id="total-feedbacks">0</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card success">
+                        <div class="stats-info">
+                            <h5 class="text-success">Total Messages</h5>
+                            <h2 id="total-messages">0</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-envelope fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lost Items Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card warning">
+                        <div class="stats-info">
+                            <h5 class="text-warning">Lost Items</h5>
+                            <h2 id="total-lost">0</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-search-minus fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Found Items Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card info">
+                        <div class="stats-info">
+                            <h5 class="text-info">Found Items</h5>
+                            <h2 id="total-found">0</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-search-plus fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Claims Card -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="stats-card danger">
+                        <div class="stats-info">
+                            <h5 class="text-danger">Total Claims</h5>
+                            <h2 id="total-claims">0</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="fas fa-hand-holding-heart fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity / Charts could go here -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h4><i class="fas fa-chart-line mr-2"></i> System Overview</h4>
+                        </div>
+                        <p class="text-muted">Welcome to the Lost and Found Admin Dashboard. Use the sidebar to navigate between sections.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedbacks Section -->
+        <div id="feedbacks-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h4><i class="fas fa-comments mr-2"></i> User Feedbacks</h4>
+                    <button class="btn btn-primary btn-sm" onclick="loadFeedbacks()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Comments</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbacks-table-body">
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Section -->
+        <div id="messages-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h4><i class="fas fa-envelope mr-2"></i> Contact Messages</h4>
+                    <button class="btn btn-success btn-sm" onclick="loadMessages()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Sender</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messages-table-body">
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lost Items Section -->
+        <div id="lost-items-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h4><i class="fas fa-search-minus mr-2"></i> Lost Items</h4>
+                    <button class="btn btn-warning btn-sm" onclick="loadLostItems()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item Name</th>
+                                <th>Reported By</th>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Date Lost</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lost-items-table-body">
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Found Items Section -->
+        <div id="found-items-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h4><i class="fas fa-search-plus mr-2"></i> Found Items</h4>
+                    <button class="btn btn-info btn-sm" onclick="loadFoundItems()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Item Name</th>
+                                <th>Reported By</th>
+                                <th>Category</th>
+                                <th>Location</th>
+                                <th>Date Found</th>
+                                <th>Status</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="found-items-table-body">
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Claims Section -->
+        <div id="claims-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h4><i class="fas fa-hand-holding-heart mr-2"></i> Claims & Requests</h4>
+                    <button class="btn btn-danger btn-sm" onclick="loadClaims()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Item</th>
+                                <th>Reported By</th>
+                                <th>Claimed By</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="claims-table-body">
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="history-section" style="display: none;">
+            <div class="table-container">
+                <div class="table-header">
+                    <h4><i class="fas fa-history mr-2"></i> Admin Action History</h4>
+                    <button class="btn btn-secondary btn-sm" onclick="loadHistory()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Admin</th>
+                                <th>Action</th>
+                                <th>Item Type</th>
+                                <th>Item ID</th>
+                                <th>Date</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check admin access on load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAccess();
+        });
+
+        function showSection(sectionId, element) {
+            // Hide all sections
+            document.getElementById('dashboard-section').style.display = 'none';
+            document.getElementById('feedbacks-section').style.display = 'none';
+            document.getElementById('messages-section').style.display = 'none';
+            document.getElementById('lost-items-section').style.display = 'none';
+            document.getElementById('found-items-section').style.display = 'none';
+            document.getElementById('claims-section').style.display = 'none';
+
+            // Show selected section
+            const titles = {
+                'dashboard': 'Dashboard Overview',
+                'feedbacks': 'User Feedbacks',
+                'messages': 'Contact Messages',
+                'lost-items': 'Lost Items Report',
+                'found-items': 'Found Items Inventory',
+                'claims': 'Claims & Requests'
+            };
+            
+            document.getElementById('page-title').textContent = titles[sectionId];
+
+            if (sectionId === 'dashboard') {
+                document.getElementById('dashboard-section').style.display = 'block';
+                loadAdminStats();
+            } else if (sectionId === 'feedbacks') {
+                document.getElementById('feedbacks-section').style.display = 'block';
+                loadFeedbacks();
+            } else if (sectionId === 'messages') {
+                document.getElementById('messages-section').style.display = 'block';
+                loadMessages();
+            } else if (sectionId === 'lost-items') {
+                document.getElementById('lost-items-section').style.display = 'block';
+                loadLostItems();
+            } else if (sectionId === 'found-items') {
+                document.getElementById('found-items-section').style.display = 'block';
+                loadFoundItems();
+            } else if (sectionId === 'claims') {
+                document.getElementById('claims-section').style.display = 'block';
+                loadClaims();
+            } else if (sectionId === 'history') {
+                document.getElementById('history-section').style.display = 'block';
+                loadHistory();
+            }
+
+            // Update sidebar active state
+            if (element) {
+                const links = document.querySelectorAll('.sidebar-link');
+                links.forEach(link => link.classList.remove('active'));
+                element.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
